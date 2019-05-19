@@ -80,7 +80,7 @@ int main()
 	int counter = 0;
 	
 	int gameBoad[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-	bool isCounterEven;
+	bool counterEven, 
 
 
 
@@ -89,10 +89,13 @@ int main()
 
 	while (1) {
 
-		//   is counter even/odd
-		isCounterEven = counter % 2 ? true : false;
+		counterEven = counter % 2 ? true : false;
 
-		
+		if (isGameWon()) {
+			// congrats and result prompt
+			break; //quit
+		}
+			 
 
 		//   check is the game is won,remember the counter
 		//   promt user 1 or 2 depending in the counter
@@ -119,7 +122,7 @@ int main()
 		//data processing
 		//terminal output
 		++counter;
-		break;
+		
 	}
 
 	return 0;
