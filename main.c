@@ -19,16 +19,16 @@ bool isAIplaying() {
 	int userChoice;
 	scanf("%d", &userChoice);
 	--userChoice;
-	if (!userChoice) // choice has to be deacreased by one 
+	if (!userChoice) // choice has to be decreased by one 
 		return true; // first option is AI !(1 - 1 = 0) = true
 	else
-		return false; // any number larger than 1 will be play with parter
+		return false; // any number larger than 1 will be play with partner
 }
 
 
 void printPromtOX() {
 	printf("Player ONE!!! Chose symbol! X or O?");
-	//print large X and large O with numbers 1 and 2 unerneath
+	// print large X and large O with numbers 1 and 2 underneath
 }
 
 
