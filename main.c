@@ -18,19 +18,34 @@ void printPromptAI() {
 bool isAIplaying() {
 	int userChoice;
 	scanf("%d", &userChoice);
-	--userChoice;
-	if (!userChoice) // choice has to be deacreased by one 
+	--userChoice; // what do these -- do?
+	if (!userChoice) // choice has to be decreased by one 
 		return true; // first option is AI !(1 - 1 = 0) = true
 	else
-		return false; // any number larger than 1 will be play with parter
+		return false; // any number larger than 1 will be play with partner
 }
 
 
-void printPromtOX() {
+void printPromptOX() {
 	printf("Player ONE!!! Chose symbol! X or O?");
-	//print large X and large O with numbers 1 and 2 unerneath
+	// print large X and large O with numbers 1 and 2 underneath
 }
 
+void printOX(){
+	printf("X    X         OO\n"
+	" X  X         O  O\n"
+	"  XX         O    O\n"
+	" X  X         O  O\n"
+	"X    X         OO\n");
+}
+
+/*
+X    X         OO
+ X  X         O  O
+  XX         O    O
+ X  X         O  O
+X    X         OO
+*/
 
 void getUserSymbol(int *player, int  *other) {
 	int choice;
@@ -47,17 +62,13 @@ void getUserSymbol(int *player, int  *other) {
 	}
 }
 
-
 void updateGameBoard(int move, int board[], int bsize) {
 }
-
 
 bool isMoveAllowed(int move, int board[], int bsize) {
 }
 
-
 void printBoard(int board[], int bsize);
-
 
 void makeAImove(int board[], int bsize) {
 	int move = rand() % 9;
@@ -73,17 +84,9 @@ bool isGameWon(int board[]) {
 	// 012 345 678 horizontal lines
 	// 036 147 258 vertical lines 
 	// 048 246     diagonals
-	// ignore zeroes! emptyy element
+	// ignore zeroes! empty element
 	return false;
 }
-
-/*
-X    X         OO
- X  X         O  O
-  XX         O    O
- X  X         O  O
-X    X         OO
-*/
 
 int main()
 {
@@ -91,19 +94,19 @@ int main()
 	bool isAgainstAI; //flag that will be used to choose correct game mode
 	int player1, player2;
 
-	int gameBoad[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int gameBoard[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 	bool counterEven;
 
-	printPromptAI();
+	printPromptAI(); // done
 	isAgainstAI = isAIplaying();
 
-	printPromtOX();
+	printPromptOX();
+	printOX();
 	getUserSymbol(&player1, &player2);
 
 	//save O or X
-    //promt lets begin game
+	//prompt lets begin game
 	//clear the screen
-
 	
 	int counter = 0;
 	while (1) {
