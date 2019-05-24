@@ -19,6 +19,8 @@ bool isAIplaying() {
 	int userChoice;
 	scanf("%d", &userChoice);
 	--userChoice;
+
+
 	if (!userChoice) // choice has to be deacreased by one 
 		return true; // first option is AI !(1 - 1 = 0) = true
 	else
@@ -37,22 +39,31 @@ void getUserSymbol(int *player, int  *other) {
 	scanf("%d", &choice);
 	--choice;
 	//check choice
-	if (choice) {
-		*player = CIRCLE;
-		*other = CROSS;
-	}
-	else {
+	if (!choice) {
 		*player = CROSS;
 		*other = CIRCLE;
+	}
+	else {
+		*player = CIRCLE;
+		*other = CROSS;
 	}
 }
 
 
-void updateGameBoard(int move, int board[], int bsize) {
+void printGameBagin() {
+	//lets begin game message
+	// clear the screen
+
+
+}
+
+
+void updateGameBoard(int move, int board[], int bsize, int player) {
 }
 
 
 bool isMoveAllowed(int move, int board[], int bsize) {
+	
 }
 
 
@@ -78,11 +89,12 @@ bool isGameWon(int board[]) {
 }
 
 /*
-X    X         OO
- X  X         O  O
-  XX         O    O
- X  X         O  O
-X    X         OO
+______
+ X  X |        OOO      
+  XX  |       O   O   1 2 3 4 5 6 7 8 9 
+ X  X |       OOO        
+                         
+
 */
 
 int main()
@@ -91,16 +103,16 @@ int main()
 	bool isAgainstAI; //flag that will be used to choose correct game mode
 	int player1, player2;
 
-	int gameBoad[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // 0 is number 1 - x, 2 - o
+
 	bool counterEven;
 
 	printPromptAI();
 	isAgainstAI = isAIplaying();
 
 	printPromtOX();
-	getUserSymbol(&player1, &player2);
+	getUserSymbol(&player1, &player2);   //save O or X
 
-	//save O or X
     //promt lets begin game
 	//clear the screen
 
@@ -110,7 +122,7 @@ int main()
 
 		counterEven = counter % 2 ? true : false;
 
-		if (isGameWon(gameBoad)) {
+		if (isGameWon(gameBoard)) {
 			// congrats and result prompt
 			break; //quit
 		}
