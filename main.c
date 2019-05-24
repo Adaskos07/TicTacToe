@@ -29,7 +29,7 @@ bool isAIplaying() {
 
 
 void printPromtOX() {
-	printf("Player ONE!!! Chose symbol! X or O?");
+	printf("Player ONE!!! Chose symbol! X or O?\n");
 	//print large X and large O with numbers 1 and 2 unerneath
 }
 
@@ -94,7 +94,7 @@ bool isGameWon(int board[]) {
 	// 012 345 678 horizontal lines
 	// 036 147 258 vertical lines 
 	// 048 246     diagonals
-	// ignore zeroes! emptyy element
+	// ignore -1! empty element
 	return false;
 }
 
@@ -102,10 +102,14 @@ bool isGameWon(int board[]) {
 int main()
 {
 	srand(time(NULL));
-	bool isAgainstAI; //flag that will be used to choose correct game mode
-	int player1, player2;
+	
+	//flag that will be used to choose correct game mode, true - player 1, false -player 2
+	bool isAgainstAI, playerTurn;
 
-	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // 0 is number 1 - x, 2 - o
+	//saves the chosen symbol, 0 circle, 1 cross
+	int player1, player2; //saves the chosen symbol, 0 circle, 1 cross
+	//-1 empty, 0 circle, 1 cross
+	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 	int playerChoice;
 
 	bool playerTurn;
@@ -161,8 +165,6 @@ int main()
 		//   check is the game is won,remember the counter
 		//   promt user 1 or 2 depending in the counter
 		//   take  input
-		//
-	
 		//   check if move is correct if not move back two steps
 		//   change the internal board represented by array
 		//    clear the screen
@@ -177,15 +179,14 @@ int main()
 		//   AI makes move
 		//   check if AI is correct
 		//   change the internal board represented by array
-		//    clear the screen
-		//    print the noew updated board
+		//   clear the screen
+		//   print the noew updated board
 
 		//user input
 		//clear screen
 		//data processing
 		//terminal output
 		++counter;
-		
 	}
 
 	return 0;
