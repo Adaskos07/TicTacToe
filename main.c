@@ -58,12 +58,22 @@ void printGameBagin() {
 }
 
 
-void updateGameBoard(int move, int board[], int bsize, int player) {
+void updateGameBoard(int move, int board[], int player) {
+	--move;
+	board[move] = player;
 }
 
 
-bool isMoveAllowed(int move, int board[], int bsize) {
+bool isMoveAllowed(int move, int board[]) {
+	if (move < 0 && move > 9)
+		return false;
+
+	--move;
 	
+	if (board[move] == -1)
+		return true;
+	else
+		return false;
 }
 
 
@@ -73,10 +83,10 @@ void printBoard(int board[], int bsize);
 void makeAImove(int board[], int bsize) {
 	int move = rand() % 9;
 
-	while (!isMoveAllowed(move, board, bsize))
+	while (!isMoveAllowed(move, board))
 		move = rand() % 9;
 
-	updateGameBoard(move, board, bsize);
+	updateGameBoard(move, board, 1);
 }
 
 
@@ -88,14 +98,6 @@ bool isGameWon(int board[]) {
 	return false;
 }
 
-/*
-______
- X  X |        OOO      
-  XX  |       O   O   1 2 3 4 5 6 7 8 9 
- X  X |       OOO        
-                         
-
-*/
 
 int main()
 {
@@ -104,14 +106,16 @@ int main()
 	int player1, player2;
 
 	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // 0 is number 1 - x, 2 - o
+	int playerChoice;
 
-	bool counterEven;
+	bool playerTurn;
 
-	printPromptAI();
-	isAgainstAI = isAIplaying();
+	//printPromptAI();
+	//isAgainstAI = isAIplaying();
 
 	printPromtOX();
 	getUserSymbol(&player1, &player2);   //save O or X
+	//printf("%d  %d", player1, player2);
 
     //promt lets begin game
 	//clear the screen
@@ -120,19 +124,45 @@ int main()
 	int counter = 0;
 	while (1) {
 
-		counterEven = counter % 2 ? true : false;
+		playerTurn = counter % 2 ? false : true;
 
-		if (isGameWon(gameBoard)) {
+		//if (isGameWon(gameBoard)) {
 			// congrats and result prompt
-			break; //quit
+			//break; //quit
+		//}
+
+		if (playerTurn)
+			printf("player 1 move!");
+		else
+			printf("player 2 move!");
+
+		
+		scanf("%d", &playerChoice);
+
+		while (!isMoveAllowed(playerChoice, gameBoard)) {
+			printf("WRONG INPUT, try again!");
+			scanf("%d", &playerChoice);
 		}
-		break;
+
+		if (playerTurn)
+			updateGameBoard(playerChoice, gameBoard, player1);
+		else
+			updateGameBoard(playerChoice, gameBoard, player2);
+			
+
+		for (int i = 0; i < 9; ++i)
+			printf("%d  ", gameBoard[i]);
+			
+
+
 
 			 
 
 		//   check is the game is won,remember the counter
 		//   promt user 1 or 2 depending in the counter
 		//   take  input
+		//
+	
 		//   check if move is correct if not move back two steps
 		//   change the internal board represented by array
 		//    clear the screen
