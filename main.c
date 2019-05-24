@@ -80,13 +80,13 @@ bool isMoveAllowed(int move, int board[]) {
 void printBoard(int board[], int bsize);
 
 
-void makeAImove(int board[], int bsize) {
+void makeAImove(int board[], int AIsymbol) {
 	int move = rand() % 9;
 
 	while (!isMoveAllowed(move, board))
 		move = rand() % 9;
 
-	updateGameBoard(move, board, 1);
+	updateGameBoard(AIsymbol, move, board);
 }
 
 
@@ -107,12 +107,10 @@ int main()
 	bool isAgainstAI, playerTurn;
 
 	//saves the chosen symbol, 0 circle, 1 cross
-	int player1, player2; //saves the chosen symbol, 0 circle, 1 cross
+	int player1, player2; 
 	//-1 empty, 0 circle, 1 cross
 	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 	int playerChoice;
-
-	bool playerTurn;
 
 	//printPromptAI();
 	//isAgainstAI = isAIplaying();
