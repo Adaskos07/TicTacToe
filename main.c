@@ -28,10 +28,8 @@ void printWelcome() {
 
 
 void printPromptAI() {
-	printf("Welcome to the Tic Tac Toe game!!!\n\
-			\rWould you like to play with a computer or another player?\n"
-		  ); // add large sign with AI or another player, 
-	         // choice use with a number subtracted by 1
+	printf("Would you like to play with a computer or another player?\n"); 
+	// add large sign with AI or another player, 
 }
 
 
@@ -54,7 +52,7 @@ void printPromtOX() {
 		  \r  XX          O    O\n\
 		  \r X  X         O    O\n\
 		  \rX    X         OOOO\n\n\
-		  \r (1)     or   (2)\n"
+		  \r(1)     or    (2)\n"
 			 );
 }
 
@@ -63,11 +61,11 @@ void getUserSymbol(int *player, int  *other) {
 	int choice;
 	scanf("%d", &choice);
 	--choice;
-	//check choice
+
 	if (!choice) {
 		*player = CROSS;
 		*other = CIRCLE;
-	}
+	} 
 	else {
 		*player = CIRCLE;
 		*other = CROSS;
@@ -104,8 +102,19 @@ bool isMoveAllowed(int move, int board[]) {
 void printBoard(int board[], int bsize) {
 }
 
+// | needs corrections
+int makePlayerMove(int board[]) {
+	int move;
+	scanf("%d", &move);
+	while (!isMoveAllowed(move, board)) {
+		printf("WRONG MOVE! Please repeat!");
+		scanf("%d", &move); //check for weird inputs such as letters
+	}
+	return move;
+}
 
-int makeAImove() {
+
+int makeAIMove(int board[]) {
 	int move = rand() % 9;
 	while (!isMoveAllowed(move, board))
 		move = rand() % 9;
@@ -143,47 +152,33 @@ int main()
 
 	printPromtOX();
 	getUserSymbol(&player1, &player2);   //save O or X
-	//printf("%d  %d", player1, player2);
+	//make function that displays assigned symbols
 
     //promt lets begin game
 	//clear the screen
 	
 	int counter = 0;
-	bool currentPlayer;
-	while (counter < 10) {
-
+	int currentPlayer;
+	while (false) {
 		playerTurn = counter % 2 ? false : true;
-		currentPlayer = playerTurn ? player1 : player2;
 
-		//if (isGameWon(gameBoard)) {
-			// congrats and result prompt
-			//break; //quit
-		//}
+		//if (isGameWon(gameBoard
 
-		if (playerTurn)
+		if (playerTurn) {
 			printf("Player 1! Make a move!\n");
-			
+			//nextMove = ->implement makePlayerMove();
+		}
 		else if (isAgainstAI) {
 			printf("AI makes a move...");
-			nextMove = makeAImove();
+			nextMove = makeAIMove(gameBoard);
 		}
-		else
+		else {
 			printf("Player 2! Make a move!\n");
-			
-
-		
-		scanf("%d", &nextMove);
-
-		while (!isMoveAllowed(nextMove, gameBoard)) {
-			printf("WRONG INPUT, try again!\n");
-			scanf("%d", &nextMove);
+			//nextMove = ->implement makePlayerMove();
 		}
-
-		updateGameBoard(nextMove, gameBoard, currentPlayer);
 			
-		for (int i = 0; i < 9; ++i)
-			printf("%d  ", gameBoard[i]);
-		printf("\n");
+		currentPlayer = playerTurn ? player1 : player2;
+		updateGameBoard(nextMove, gameBoard, currentPlayer);
 			
 		//   check is the game is won,remember the counter
 		//   promt user 1 or 2 depending in the counter
@@ -192,7 +187,6 @@ int main()
 		//   change the internal board represented by array
 		//    clear the screen
 		//    print the noew updated board
-
 
 		//   is counter even/odd 
 		//   check is the game is won,
@@ -204,11 +198,6 @@ int main()
 		//   change the internal board represented by array
 		//   clear the screen
 		//   print the noew updated board
-
-		//user input
-		//clear screen
-		//data processing
-		//terminal output
 		++counter;
 	}
 
