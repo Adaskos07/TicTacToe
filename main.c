@@ -47,13 +47,13 @@ bool isAIplaying() {
 
 void printPromtOX() {
 	printf("Player ONE!!! Chose symbol!\n");
-	printf("X    X         OOOO\n\
-	      \r X  X         O    O\n\
-		  \r  XX          O    O\n\
-		  \r X  X         O    O\n\
-		  \rX    X         OOOO\n\n\
-		  \r(1)     or    (2)\n"
-			 );
+	printf("X    X         OOOO\n"
+	       " X  X         O    O\n"
+		   "  XX          O    O\n"
+		   " X  X         O    O\n"
+		   "X    X         OOOO\n"
+		   "(1)     or    (2)\n"
+		   );
 }
 
 
@@ -122,7 +122,7 @@ int makeAIMove(int board[]) {
 	return move;
 }
 
-
+//maybe bool is not correct return type
 bool isGameWon(int board[]) {
 	// 012 345 678 horizontal lines
 	// 036 147 258 vertical lines 
@@ -161,8 +161,8 @@ int main()
 	int currentPlayer;
 	while (false) {
 		playerTurn = counter % 2 ? false : true;
+		//check if game is won or is it draw
 
-		//if (isGameWon(gameBoard
 
 		if (playerTurn) {
 			printf("Player 1! Make a move!\n");
