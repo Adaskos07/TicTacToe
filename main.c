@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 #define CIRCLE 0
 #define CROSS 1
@@ -30,7 +31,7 @@ void printWelcome() {
 void printPromptAI() {
 	printf("Would you like to play with a computer[TYPE 1]"
 	       " or another player[TYPE 2]?\n"); 
-	// add large sign with AI or another player, 
+	/* add large sign with AI or another player, */
 }
 
 
@@ -87,7 +88,7 @@ void updateGameBoard(int move, int board[], int player) {
 
 
 bool isMoveAllowed(int move, int board[]) {
-	if (move < 1 && move > 9)
+	if (move < 1 || move > 9)
 		return false;
 
 	--move;
@@ -101,8 +102,8 @@ bool isMoveAllowed(int move, int board[]) {
 
 void printBoard(int board[]) {
 	char symbols[9]; 
+	int symbol;
 	for (int i = 0; i < 9; ++i) {
-		int symbol;
 		symbol = board[i];
 		switch (symbol) {
 			case -1:
@@ -115,7 +116,6 @@ void printBoard(int board[]) {
 				symbols[i] = 'X';
 		}
 	}
-
     printf("\n\n\tTic Tac Toe\n\n");
     printf("      |      |     \n");
     printf("   %c  |  %c   |  %c \n", symbols[0], symbols[1], symbols[2]);
@@ -126,15 +126,31 @@ void printBoard(int board[]) {
     printf("      |      |     \n");
     printf("   %c  |  %c   |  %c \n", symbols[6], symbols[7], symbols[8]);
     printf("      |      |     \n\n");
+	/*
+    printf("\n\n\tTic Tac Toe\n\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "______|______|______\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "______|______|______\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "      |      |     \n\n"
+		   , symbols[0], symbols[1], symbols[2]
+		   , symbols[3], symbols[4], symbols[5]
+		   , symbols[6], symbols[7], symbols[8]
+		   );
+	*/
 }
 
-// | needs corrections
+/* needs corrections */
 int makePlayerMove(int board[]) {
 	int move;
 	scanf("%d", &move);
 	while (!isMoveAllowed(move, board)) {
 		printf("WRONG MOVE! Please repeat!");
-		scanf("%d", &move); //check for weird inputs such as letters
+		scanf("%d", &move); /*check for weird inputs such as letters*/
 	}
 	return move;
 }
@@ -148,56 +164,94 @@ int makeAIMove(int board[]) {
 	return move;
 }
 
-//maybe bool is not correct return type
+/*maybe bool is not correct return type*/
 int isGameWon(int board[]) {
 	// 012 345 678 horizontal lines
 	// 036 147 258 vertical lines 
 	// 048 246     diagonals
 	// ignore -1! empty element
-	return false;
-
-
+	if (board[0] == board[1] && board[1] == board[2])                       
+         return 1;                                                           
+                                                                             
+    else if (board[3] == board[4] && board[4] == board[5])                  
+         return 1;                                                           
+                                                                             
+     else if (board[6] == board[7] && board[7] == board[8])                  
+         return 1;                                                           
+                                                                            
+    // vertical lines                                                       
+                                                                         
+     else if (board[0] == board[3] && board[3] == board[6])                  
+        return 1;                                                           
+                                                                             
+     else if (board[1] == board[4] && board[4] == board[7])                  
+        return 1;                                                           
+                                                                             
+     else if (board[2] == board[5] && board[5] == board[8])                  
+        return 1;                                                           
+                                                                             
+     // diagonals                                                            
+                                                                             
+     else if (board[0] == board[4] && board[4] == board[8])                  
+         return 1;                                                           
+                                                                             
+     else if (board[2] == board[4] && board[4] == board[6])                  
+         return 1;                                                           
+                                                                             
+     // basically the board is all filled up, so it's game over              
+                                                                             
+     else if (board[0] != -1 && board[1] != -1 && board[3] != -1 &&          
+              board[4] != -1 && board[5] != -1 && board[6] != -1 &&
+              board[7] != -1 && board[8] != -1 && board[9] != -1
+			  )
+          return 0;
+  
+     else
+         return -1;
+   	
 }
 
 
 int main()
 {
 	srand(time(NULL));
-	//flag that will be used to choose correct game mode,
+	/* flag that will be used to choose correct game mode */
 	bool isAgainstAI;
-	//true - player 1, false -player 2
-	bool playerTurn;
-	//saves the chosen symbol, 0 circle, 1 cross
+	/* true - player 1, false -player 2 */
+	bool isPlrOneTurn;
+	/* saves the chosen symbol, 0 circle, 1 cross */
 	int player1, player2; 
-	//-1 empty, 0 circle, 1 cross
+	/* -1 empty, 0 circle, 1 cross */
 	int gameBoard[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 };
-	// saves moves between 1 and 9
+	/* saves moves between 1 and 9 */
 	int nextMove; 
 
 	printWelcome();
 	printPromptAI();
 	isAgainstAI = isAIplaying();
 	printPromtOX();
-	getUserSymbol(&player1, &player2);   //save O or X
-	//make function that displays assigned symbols
+	getUserSymbol(&player1, &player2); 
+	/* make function that displays assigned symbols */
 	printBoard(gameBoard);
 
-    //promt lets begin game
-	//clear the screen
-	//clear the screen
+    /*
+	promt lets begin game
+	clear the screen
+	*/
 	
 	int counter = 0;
 	int currentPlayer;
 	while (true) {
-		playerTurn = counter % 2 ? false : true;
-		//check if game is won or is it draw
+		isPlrOneTurn = counter % 2 ? false : true;
+		/* check if game is won or is it a draw */
 
-		if (playerTurn) {
+		if (isPlrOneTurn) {
 			printf("Player 1! Make a move!\n");
 			nextMove = makePlayerMove(gameBoard);
 		}
 		else if (isAgainstAI) {
 			printf("AI makes a move...\n");
+			sleep(2); //non portable, comment out on windows
 			nextMove = makeAIMove(gameBoard);
 		}
 		else {
@@ -205,8 +259,10 @@ int main()
 			nextMove = makePlayerMove(gameBoard);
 		}
 			
-		currentPlayer = playerTurn ? player1 : player2;
+		//system("clear");
+		currentPlayer = isPlrOneTurn ? player1 : player2;
 		updateGameBoard(nextMove, gameBoard, currentPlayer);
+
 		printBoard(gameBoard);
 			
 		//   check is the game is won,remember the counter
