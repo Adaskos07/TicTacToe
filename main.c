@@ -126,22 +126,6 @@ void printBoard(int board[]) {
     printf("      |      |     \n");
     printf("   %c  |  %c   |  %c \n", symbols[6], symbols[7], symbols[8]);
     printf("      |      |     \n\n");
-	/*
-    printf("\n\n\tTic Tac Toe\n\n"
-           "      |      |     \n"
-           "   %c  |  %c   |  %c \n"
-           "______|______|______\n"
-           "      |      |     \n"
-           "   %c  |  %c   |  %c \n"
-           "______|______|______\n"
-           "      |      |     \n"
-           "   %c  |  %c   |  %c \n"
-           "      |      |     \n\n"
-		   , symbols[0], symbols[1], symbols[2]
-		   , symbols[3], symbols[4], symbols[5]
-		   , symbols[6], symbols[7], symbols[8]
-		   );
-	*/
 }
 
 /* needs corrections */
