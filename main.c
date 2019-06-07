@@ -238,11 +238,27 @@ int main()
 	promt lets begin game
 	clear the screen
 	*/
-	
+	int gameState = 0;
 	int counter = 0;
 	int currentPlayer;
 	while (true) {
 		isPlrOneTurn = counter % 2 ? false : true;
+
+		gameState = isGameWon(gameBoard);
+		//-1 = game goes on, 0 = draw, 1 - game won
+
+		if (gameState == 1) {
+			//print some message hurray!
+			//print which player won
+			//function (isPlrOneTurn, isAgainstAI)
+			break;
+		}
+		else if (gameState == 0) {
+			printf("The game ended with DRAW!!!\n");
+			break;
+		}
+			
+
 		/* check if game is won or is it a draw */
 
 		if (isPlrOneTurn) {
@@ -265,13 +281,13 @@ int main()
 
 		printBoard(gameBoard);
 			
-		//   check is the game is won,remember the counter
+		//   check is the game is won, remember the counter
 		//   promt user 1 or 2 depending in the counter
 		//   take  input
 		//   check if move is correct if not move back two steps
 		//   change the internal board represented by array
 		//    clear the screen
-		//    print the noew updated board
+		//    print the new updated board
 
 		//   is counter even/odd 
 		//   check is the game is won,
