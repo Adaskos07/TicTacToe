@@ -110,22 +110,27 @@ void printBoard(int board[]) {
 				symbols[i] = '1' + i;
 				break;
 			case 0:
-				symbols[i] = 'O';
+				symbols[i] = '0';
 				break;
 			case 1:
 				symbols[i] = 'X';
 		}
 	}
-    printf("\n\n\tTic Tac Toe\n\n");
-    printf("      |      |     \n");
-    printf("   %c  |  %c   |  %c \n", symbols[0], symbols[1], symbols[2]);
-    printf("______|______|______\n");
-    printf("      |      |     \n");
-    printf("   %c  |  %c   |  %c \n", symbols[3], symbols[4], symbols[5]);
-    printf("______|______|______\n");
-    printf("      |      |     \n");
-    printf("   %c  |  %c   |  %c \n", symbols[6], symbols[7], symbols[8]);
-    printf("      |      |     \n\n");
+
+    printf("\n\n\tTic Tac Toe\n\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "______|______|______\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "______|______|______\n"
+           "      |      |     \n"
+           "   %c  |  %c   |  %c \n"
+           "      |      |     \n\n"
+		   ,symbols[0], symbols[1], symbols[2]
+		   ,symbols[3], symbols[4], symbols[5]
+		   ,symbols[6], symbols[7], symbols[8]
+		   );
 }
 
 /* needs corrections */
@@ -164,7 +169,6 @@ int isGameWon(int board[]) {
          return 1;                                                           
                                                                             
     // vertical lines                                                       
-                                                                         
      else if (board[0] == board[3] && board[3] == board[6])                  
         return 1;                                                           
                                                                              
@@ -189,10 +193,22 @@ int isGameWon(int board[]) {
               board[7] != -1 && board[8] != -1 && board[9] != -1
 			  )
           return 0;
-  
      else
-         return -1;
-   	
+return -1;
+}
+
+
+void plrWonMsg(bool plrTurn, bool isAI){
+	printf("Hooray!\n");
+	if (plrTurn) {
+		printf("Player 1 won!\n");
+	}
+	else if (isAI) {
+		printf("The superior computer won... >:) \n");
+	}
+	else {
+		printf("Player 2 won!\n");
+	}
 }
 
 
@@ -220,27 +236,14 @@ int main()
 
     /*
 	promt lets begin game
-	clear the screen
+	clear the screien
 	*/
-	int gameState = 0;
+	int gameState = -1;
 	int counter = 0;
 	int currentPlayer;
 	while (true) {
 		isPlrOneTurn = counter % 2 ? false : true;
 
-		gameState = isGameWon(gameBoard);
-		//-1 = game goes on, 0 = draw, 1 - game won
-
-		if (gameState == 1) {
-			//print some message hurray!
-			//print which player won
-			//function (isPlrOneTurn, isAgainstAI)
-			break;
-		}
-		else if (gameState == 0) {
-			printf("The game ended with DRAW!!!\n");
-			break;
-		}
 			
 
 		/* check if game is won or is it a draw */
@@ -262,8 +265,20 @@ int main()
 		//system("clear");
 		currentPlayer = isPlrOneTurn ? player1 : player2;
 		updateGameBoard(nextMove, gameBoard, currentPlayer);
-
 		printBoard(gameBoard);
+		
+		gameState = isGameWon(gameBoard);
+		//-1 = game goes on, 0 = draw, 1 - game won
+
+		if (gameState == 1) {
+			plrWonMsg(isPlrOneTurn, isAgainstAI);	
+			break;
+		}
+		else if (gameState == 0) {
+			printf("The game ended with DRAW!!!\n");
+			break;
+		}
+		
 			
 		//   check is the game is won, remember the counter
 		//   promt user 1 or 2 depending in the counter
