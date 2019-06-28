@@ -325,7 +325,7 @@ void saveGameResult(bool draw, bool plrTurn, bool isAI) {
 
     int combs[4][3] = { {0, 0, 0}, {1, 0, 0}, {0, 0, 1}, {0, 1, 0} };
 
-    if (draw) 
+    if (draw)
         rslt = 0;
 	else if (plrTurn)
         rslt = 1;
