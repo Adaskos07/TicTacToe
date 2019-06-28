@@ -134,10 +134,10 @@ bool isAIplaying() {
 	scanf("%d", &userChoice);
 	--userChoice;
 
-	if (!userChoice) // choice has to be deacreased by one 
-		return true; // first option is AI !(1 - 1 = 0) = true
+	if (userChoice) // choice has to be deacreased by one 
+		return false; // first option is AI !(1 - 1 = 0) = true
 	else
-		return false; // any number larger than 1 will be play with parter
+		return true; // any number larger than 1 will be play with parter
 }
 
 
@@ -158,13 +158,13 @@ void getUserSymbol(int *player, int  *other) {
 	scanf("%d", &choice);
 	
 	--choice;
-	if (!choice) {
-		*player = CROSS;
-		*other = CIRCLE;
-	} 
-	else {
+	if (choice) {
 		*player = CIRCLE;
 		*other = CROSS;
+	} 
+	else {
+		*player = CROSS;
+		*other = CIRCLE;
 	}
 }
 
@@ -228,9 +228,9 @@ int makePlayerMove(int board[]) {
 	int move;
 	char buf[30], *buf_ptr, *ptr;
 	/* I am not sure completely why it works...*/
-	buf[0] = getchar();
 	fgets(buf, (sizeof buf), stdin);
 	move = strtol(buf, &ptr, 10);
+
 	while (!isMoveAllowed(move, board)) {
 		//int ch;
 		//while ((ch = getchar() != '\n') && (ch != EOF))
