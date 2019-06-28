@@ -8,7 +8,6 @@
 #define CROSS 1
 #define EMPTY -1
 
-
 void printWelcome();
 void printPromptAI();
 bool isAIplaying();
@@ -22,7 +21,17 @@ int makeAIMove(int board[]);
 int makeAIMove(int board[]);
 int isGameWon(int board[]);
 void plrWonMsg(bool plrTurn, bool isAI);
+void saveGameResult(bool draw, bool plrTurn, bool isAI);
 
+		//   check is the game is won, remember the counter
+		//   promt user 1 or 2 depending in the counter
+		//   take  input
+		//   check if move is correct if not move back two steps
+		//   change the internal board represented by array
+		//   clear the screen
+		//   print the new updated board
+		//   check is someone win
+		//   if yes, ask for the next game else ask player for the move
 
 int main()
 {
@@ -52,7 +61,7 @@ int main()
 	*/
 	int gameState = -1;
 	int counter = 0;
-	int currentPlayer;
+	int currentPlrSymbol;
 	while (true) {
 		isPlrOneTurn = counter % 2 ? false : true;
 
@@ -69,34 +78,28 @@ int main()
 			printf("Player 2! Make a move!\n");
 			nextMove = makePlayerMove(gameBoard);
 		}
+
 			
 		//system("clear");
-		currentPlayer = isPlrOneTurn ? player1 : player2;
-		updateGameBoard(nextMove, gameBoard, currentPlayer);
+		currentPlrSymbol = isPlrOneTurn ? player1 : player2;
+		updateGameBoard(nextMove, gameBoard, currentPlrSymbol);
+
 		printBoard(gameBoard);
 		
 		gameState = isGameWon(gameBoard);
-
 		/* -1 = game goes on, 0 = draw, 1 - game won */
 		/* check if game is won or is it a draw */
 		if (gameState == 1) {
 			plrWonMsg(isPlrOneTurn, isAgainstAI);	
+            saveGameResult(false, isPlrOneTurn, isAgainstAI);
 			break;
 		}
 		else if (gameState == 0) {
 			printf("The game ended with DRAW!!!\n");
+            saveGameResult(true, isPlrOneTurn, isAgainstAI);
 			break;
 		}
 			
-		//   check is the game is won, remember the counter
-		//   promt user 1 or 2 depending in the counter
-		//   take  input
-		//   check if move is correct if not move back two steps
-		//   change the internal board represented by array
-		//   clear the screen
-		//   print the new updated board
-		//   check is someone win
-		//   if yes, ask for the next game else ask player for the move
 		++counter;
 	}
 
@@ -125,6 +128,12 @@ void printWelcome() {
 void printPromptAI() {
 	printf("Would you like to play with a computer[TYPE 1]"
 	       " or another player[TYPE 2]?\n"); 
+		   printf(" ________ ________             _______\n"
+		   		  " |      |    |         |****          |\n"
+				  " |      |    |         |    *   ______|\n"
+		          " |______|    |         |****   |       \n"
+				  " |      | ___|____     |       |_______\n\n"
+				  "  (1)              or            (2)    \n");
 	/* add large sign with AI or another player, */
 }
 
@@ -142,7 +151,7 @@ bool isAIplaying() {
 
 
 void printPromtOX() {
-	printf("Player ONE!!! Chose symbol!\n");
+	printf("Player ONE!!! Chose symbol!\n\n");
 	printf("X    X         OOOO\n"
 	       " X  X         O    O\n"
 		   "  XX          O    O\n"
@@ -300,4 +309,33 @@ void plrWonMsg(bool plrTurn, bool isAI) {
 		printf("The superior computer won... >:) \n");
 	else
 		printf("Player 2 won!\n");
+}
+
+
+void saveGameResult(bool draw, bool plrTurn, bool isAI) {
+    int rslt;
+    FILE *fptr;
+    fptr = fopen("results.txt", "a");
+
+	if (fptr == NULL) {
+		printf("ERROR File not found!");
+		fclose(fptr);
+		return;
+	}
+
+    int combs[4][3] = { {0, 0, 0}, {1, 0, 0}, {0, 0, 1}, {0, 1, 0} };
+
+    if (draw) 
+        rslt = 0;
+	else if (plrTurn)
+        rslt = 1;
+	else if (isAI)
+        rslt = 2;
+	else
+        rslt = 3;
+
+    fprintf(fptr, "Player 1: %d, Player 2: %d, AI: %d\n", 
+            combs[rslt][0], combs[rslt][1], combs[rslt][2]);
+
+	fclose(fptr);
 }
